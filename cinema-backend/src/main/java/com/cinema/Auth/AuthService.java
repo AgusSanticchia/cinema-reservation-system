@@ -1,7 +1,7 @@
 package com.cinema.Auth;
 
 import com.cinema.Jwt.JwtService;
-import com.cinema.model.Role;
+import com.cinema.model.enums.Role;
 import com.cinema.model.User;
 import com.cinema.repository.UserRepository;
 import lombok.RequiredArgsConstructor;

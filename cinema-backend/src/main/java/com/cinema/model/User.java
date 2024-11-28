@@ -3,6 +3,7 @@ package com.cinema.model;
 import java.util.Collection;
 import java.util.List;
 
+import com.cinema.model.enums.Role;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
