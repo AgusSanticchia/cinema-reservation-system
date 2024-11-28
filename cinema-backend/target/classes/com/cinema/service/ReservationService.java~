@@ -1,0 +1,17 @@
+package com.cinema.service;
+
+import com.cinema.model.Reservation;
+import com.cinema.repository.ReservationRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import java.util.List;
+
+public class ReservationService {
+
+    @Autowired
+    private ReservationRepository reservationRepository;
+    
+    public List<Reservation> findAllReservations() {
+        return reservationRepository.findAll();
+    }
+}
