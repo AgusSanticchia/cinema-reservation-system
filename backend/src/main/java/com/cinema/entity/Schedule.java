@@ -30,7 +30,7 @@ public class Schedule {
 
     @ManyToOne
     @JoinColumn(name="hall_id",nullable = false)
-    private Hall hall_id;
+    private Room hall_id;
 
     @Column(name="year",nullable = false)
     private String year;
