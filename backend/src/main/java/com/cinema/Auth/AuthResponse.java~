@@ -1,4 +1,0 @@
-package com.cinema.Auth;
-
-public class AuthResponse {
-}
