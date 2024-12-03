@@ -1,6 +1,5 @@
 package com.cinema.entity;
 
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -17,8 +16,8 @@ import lombok.NoArgsConstructor;
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "schedule")
-public class Schedule {
+@Table(name = "hour")
+public class Hour {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,8 +28,8 @@ public class Schedule {
     private Movie movie_id;
 
     @ManyToOne
-    @JoinColumn(name="hall_id",nullable = false)
-    private Room hall_id;
+    @JoinColumn(name="room_id",nullable = false)
+    private Room room_id;
 
     @Column(name="year",nullable = false)
     private String year;

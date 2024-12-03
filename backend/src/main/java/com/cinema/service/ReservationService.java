@@ -1,7 +1,7 @@
 package com.cinema.service;
 
 import com.cinema.entity.Reservation;
-import com.cinema.entity.Schedule;
+import com.cinema.entity.Hour;
 import com.cinema.repository.ReservationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -19,8 +19,8 @@ public class ReservationService {
         reservationRepository.saveAll(reservations);
     }
 
-    public boolean existsBySchedule(Schedule schedule) {
-        return reservationRepository.existsBySchedule(schedule);
+    public boolean existsByHour(Hour hour) {
+        return reservationRepository.existsByHour(hour);
     }
 
 }
