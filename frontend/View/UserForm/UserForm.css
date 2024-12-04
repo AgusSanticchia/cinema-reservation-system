@@ -300,40 +300,34 @@ form#User br {
 }
 
 
-.date {
+.date{
+    font-family: 'Oswald', sans-serif;
     font-size: 4em;
     text-align: center;
     margin-bottom: 0.3rem;
     padding: 1em;
     width: 100%;
-    background-color: rgba(255, 255, 255, 0.1); 
-    color: #fff; 
+    background-color: rgba(255, 255, 255, 0.1); /* Fondo semitransparente negro */
+    color: #fff; /* Texto blanco */
 }
 
-.clock {
+.clock{
+    font-family: 'Oswald', sans-serif;
     font-size: 5em;
     text-align: center;
     margin-bottom: 0.3rem;
     padding: 1em;
     width: 100%;
-    background-color: rgba(255, 255, 255, 0.1); 
-    color: #fff; 
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.clock p {
-    margin: 0 10px;
+    background-color: rgba(255, 255, 255, 0.1); /* Fondo semitransparente negro */
+    color: #fff; /* Texto blanco */
 }
 
 .seconds-box {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    display: inline-block;  
 }
 
 .seconds-box .seconds,
 .seconds-box .ampm {
     font-size: 1.2rem;
+    display: block;
 }
