@@ -52,207 +52,171 @@ function updateHour() {
   document.getElementById("year").textContent = year;
 }
 
-// Initial call to display time immediately
 updateHour();
-
-// Update every second
 setInterval(updateHour, 1000);
 
-
-$(document).ready(function () {
-    $(".container-form")
-    .find("input, textarea")
-    .on("keyup blur focus", function (e) {
-        var $this = $(this),
+$(document).ready(function() {
+  $(".container-form").find("input, textarea").on("keyup blur focus", function (e) {
+    var $this = $(this),
         label = $this.prev("label");
-        if (e.type === "keyup") {
-        if ($this.val() === "") {
-          label.removeClass("active highlight");
-        } else {
-          label.addClass("active highlight");
-        }
-      } else if (e.type === "blur") {
-        if ($this.val() === "") {
-          label.removeClass("active highlight");
-        } else {
-          label.removeClass("highlight");
-        }
-      } else if (e.type === "focus") {
-        if ($this.val() === "") {
-          label.removeClass("highlight");
-        } else if ($this.val() !== "") {
-          label.addClass("highlight");
-        }
-      }
-    });
 
-    $(".tab a").on("click", function (e) {
-        e.preventDefault();
-    
-        $(this).parent().addClass("active");
-        $(this).parent().siblings().removeClass("active");
-    
-        target = $(this).attr("href");
-    
-        $(".container-tab > div").not(target).hide();
-    
-        $(target).fadeIn(600);
-    });
+    if (e.type === "keyup") {
+        if ($this.val() === "") {
+            label.removeClass("active highlight");
+        } else {
+            label.addClass("active highlight");
+        }
+    } else if (e.type === "blur") {
+        if ($this.val() === "") {
+            label.removeClass("active highlight");
+        } else {
+            label.removeClass("highlight");
+        }
+    } else if (e.type === "focus") {
+        if ($this.val() === "") {
+            label.removeClass("highlight");
+        } else if ($this.val() !== "") {
+            label.addClass("highlight");
+        }
+    }
+  });
+
+  $(".tab a").on("click", function (e) {
+    e.preventDefault();
+
+    $(this).parent().addClass("active");
+    $(this).parent().siblings().removeClass("active");
+
+    var target = $(this).attr("href");
+    $(".container-tab > div").not(target).hide();
+    $(target).fadeIn(600);
+  });
 });
 
-function showSection (sectionId) {
-     // Oculta todas las secciones
-    document.getElementById("createUser").style.display = "none";
-    document.getElementById("showUsers").style.display = "none";
-    // Muestra la sección seleccionada
-    if (sectionId == "showUsers") {
-        document.getElementById(sectionId).style.display = "block";
-        DesplegarTabla();
-    } else {
-        document.getElementById(sectionId).style.display = "block";
-    }
+function showSection(sectionId) {
+  document.getElementById("createUser").style.display = "none";
+  document.getElementById("showUsers").style.display = "none";
+  if (sectionId == "showUsers") {
+    document.getElementById(sectionId).style.display = "block";
+    loadTable();
+  } else {
+    document.getElementById(sectionId).style.display = "block";
+  }
 }
 
 function getJwtToken() {
-    return localStorage.getItem('jwtToken');
+  return localStorage.getItem("jwtToken");
 }
 
-function deleteUSer(){
-    var id = document.getElementById("id").value;
-    $.ajax({
-      type: "DELETE",
-      url: "http://localhost:8080/admin/users/" + id,
-      headers: {
-        "Authorization": "Bearer " + getJwtToken()
-      },
-      success: function (response) {
-        alert("User deleted successfully");
-      },
-      error: function (error) {
-        alert("Error deleting user");
-        console.error("Error:", error);
-      },
-    });
-    UnfoldTable();
+function deleteUser() {
+  var id = document.getElementById("id").value;
+  $.ajax({
+    type: "DELETE",
+    url: "http://localhost:8080/admin/users/" + id,
+    headers: {
+      "Authorization": "Bearer " + getJwtToken()
+    },
+    success: function (response) {
+      alert("User deleted successfully");
+    },
+    error: function (error) {
+      alert("Error deleting the user");
+      console.error("Error:", error);
+    },
+  });
+  displayTable();
 }
 
-function searchUser(){
-    var id = document.getElementById("id").value;
-    $.ajax({
-        type: "GET",
-        url: "http://localhost:8080/admin/users/" + id,
-        headers: {
-        "Authorization": "Bearer " + getJwtToken()
-        },
-        success: function (item){
-        var row =
-            "<tr>" +
-            "<td>" +
-            item.id +
-            "</td>" +
-            "<td>" +
-            item.username +
-            "</td>" +
-            "<td>" +
-            item.password +
-            "</td>" +
-            "<td>" +
-            item.name +
-            "</td>" +
-            "<td>" +
-            item.surname +
-            "</td>" +
-            "<td>" +
-            item.country +
-            "</td>" +
-            "<td>" +
-            item.role +
-            "</td>" +
-            "</tr>";
-        $("#showDataUsers > tbody").append(row);
-        }, 
-        error: function (error) {
-        alert("Error searching user");
-        console.error("Error:", error);
-        } 
-    });  
+function findUser() {
+  var id = document.getElementById("id").value;
+  $.ajax({
+    type: "GET",
+    url: "http://localhost:8080/admin/users/" + id,
+    headers: {
+      "Authorization": "Bearer " + getJwtToken()
+    },
+    success: function (item) {
+      $("#UsersDisplayData > tbody").empty();
+      var row =
+        "<tr>" +
+        "<td>" + item.id + "</td>" +
+        "<td>" + item.username + "</td>" +
+        "<td>" + item.password + "</td>" +
+        "<td>" + item.firstname + "</td>" +
+        "<td>" + item.lastname + "</td>" +
+        "<td>" + item.country + "</td>" +
+        "<td>" + item.role + "</td>" +
+        "</tr>";
+      $("#UsersDisplayData > tbody").append(row);
+    },
+    error: function (error) {
+      alert("Error finding the user");
+      console.error("Error:", error);
+    },
+  });
 }
 
 $("#User").on("submit", function (event) {
-    event.preventDefault();
-    var username = $("#username").val();
-    var password = $("#password").val();
-    var name = $("#name").val();
-    var surname = $("#surname").val();
-    var country = $("#country").val();
-    var role = $("#role").val();
-  
-    $.ajax({
-      type: "POST",
-      url: "http://localhost:8080/admin/users",
-      contentType: "application/json",
-      headers: {
-        "Authorization": "Bearer " + getJwtToken()
-      },
-      data: JSON.stringify({
-        username: username,
-        password: password,
-        name: name,
-        surname: surname,
-        country: country,
-        role: role
-      }),
-      success: function (response) {
-        alert("User created successfully");
-        $("#User")[0].reset();
-      },
-      error: function (error) {
-        alert("Error creating user");
-        console.error("Error:", error);
-      },
-    });
-  });
+  event.preventDefault();
+  var username = $("#username").val();
+  var password = $("#password").val();
+  var firstname = $("#name").val();
+  var lastname = $("#last").val();
+  var country = $("#country").val();
+  var role = $("#role").val();
 
-function UnfoldTable(){
-    $.ajax({
-        type: "GET",
-        url: "http://localhost:8080/admin/users",
-        dataType: "json",
-        headers: {
-            "Authorization": "Bearer " + getJwtToken()
-        },
-        success: function (data) {
-        $("#showDataUsers > tbody").empty();
-            $.each(data, function (i, item) {
-                var row =
-                    "<tr>" +
-                    "<td>" +
-                    item.id +
-                    "</td>" +
-                    "<td>" +
-                    item.username +
-                    "</td>" +
-                    "<td>" +
-                    item.password +
-                    "</td>" +
-                    "<td>" +
-                    item.name +
-                    "</td>" +
-                    "<td>" +
-                    item.surname +
-                    "</td>" +
-                    "<td>" +
-                    item.country +
-                    "</td>" +
-                    "<td>" +
-                    item.role +
-                    "</td>" +
-                    "</tr>";
-            $("#showDataUsers > tbody").append(row);
-            });
-        },
-        error: function (error) {
-            console.error("Error loading users: ", error);
-        },
-    });
+  $.ajax({
+    type: "POST",
+    url: "http://localhost:8080/admin/users",
+    contentType: "application/json",
+    headers: {
+      "Authorization": "Bearer " + getJwtToken()
+    },
+    data: JSON.stringify({
+      username: username,
+      password: password,
+      firstname: firstname,
+      lastname: lastname,
+      country: country,
+      role: role
+    }),
+    success: function (response) {
+      alert("User added successfully");
+      $("#User")[0].reset();
+    },
+    error: function (error) {
+      alert("Error adding the user");
+      console.error("Error:", error);
+    },
+  });
+});
+
+function displayTable() {
+  $.ajax({
+    type: "GET",
+    url: "http://localhost:8080/admin/users",
+    headers: {
+      "Authorization": "Bearer " + getJwtToken()
+    },
+    dataType: "json",
+    success: function(data) {
+      $("#UsersDisplayData > tbody").empty();
+      $.each(data, function(i, item) {
+        var row =
+          "<tr>" +
+          "<td>" + item.id + "</td>" +
+          "<td>" + item.username + "</td>" +
+          "<td>" + item.password + "</td>" +
+          "<td>" + item.firstname + "</td>" +
+          "<td>" + item.lastname + "</td>" +
+          "<td>" + item.country + "</td>" +
+          "<td>" + item.role + "</td>" +
+          "</tr>";
+        $("#UsersDisplayData > tbody").append(row);
+      });
+    },
+    error: function(error) {
+      console.error("Error loading users:", error);
+    }
+  });
 }

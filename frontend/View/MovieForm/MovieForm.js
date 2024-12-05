@@ -52,10 +52,7 @@ function updateHour() {
     document.getElementById("year").textContent = year;
 }
 
-// Initial call to display time immediately
 updateHour();
-
-// Update every second
 setInterval(updateHour, 1000);
 
 
@@ -98,7 +95,7 @@ $(document).ready(function(){
 
         target = $(this).attr("href");
 
-        $(".contenido-tab > div").not(target).hide();
+        $(".container-tab > div").not(target).hide();
 
         $(target).fadeIn(600);
 
@@ -113,7 +110,7 @@ function showSection(sectionId) {
     // Muestra la sección seleccionada
     if(sectionId=="showMovies"){
         document.getElementById(sectionId).style.display = 'block';
-        UnfoldTable();
+        displayTable();
     }else{
         document.getElementById(sectionId).style.display = 'block';
     }
@@ -132,7 +129,7 @@ function DeleteMovie() {
         },
         success: function(response) {
             alert("Moviee deleted successfully");;
-            UnfoldTable();
+            displayTable();
         },
         error: function(error) {
             alert("Error deleting movie");
@@ -202,7 +199,7 @@ $("#Movie").on("submit", function(event) {
     });
 });
 
-function UnfoldTable() {
+function displayTable() {
     $.ajax({
         type: "GET",
         url: "http://localhost:8080/admin/movie",

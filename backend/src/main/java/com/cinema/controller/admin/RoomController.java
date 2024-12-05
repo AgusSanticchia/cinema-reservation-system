@@ -18,7 +18,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/admin/salas")
+@RequestMapping("/admin/room")
 @CrossOrigin(origins = "*")
 public class RoomController {
     @Autowired
@@ -36,7 +36,7 @@ public class RoomController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Room> getSalas(@PathVariable Long id){
+    public ResponseEntity<Room> getRoom(@PathVariable Long id){
         Optional<Room> room = roomService.getRoom(id);
         return room.map(ResponseEntity::ok).orElseGet(()-> ResponseEntity.notFound().build());
     }
