@@ -116,6 +116,15 @@ h1 {
     margin-bottom: 15px;
 }
 
+div.content_buttons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+    width: 100%;
+    margin-top: 20px;
+}
+
 #showUsers .content_buttons label {
     font-family: 'Oswald', sans-serif;
     font-size: 20px;
@@ -129,12 +138,11 @@ h1 {
     font-family: 'Oswald', sans-serif;
     font-size: 20px;
     width: 25%; 
-    padding: 8px;
-    margin-left: 15px;
+    padding: 10px;
+    margin-left: 5px;
     margin-right: 20px;
     margin-bottom: 5px;
     border: 1px solid #ccc;
-    border-radius: 4px;
 }
 
 .fi {
@@ -144,19 +152,11 @@ h1 {
 }
 
 
-
-.content_buttons{
-    align-items: center;
-    display: flex;
-    flex-direction: row;
-    margin-bottom: 30px;
-}
-
-.eventButton{
-    cursor:pointer;
+.eventButton {
+    cursor: pointer;
     padding: 10px 10px;
     border-radius: 12px;
-    border:none;
+    border: none;
     font-family: 'Oswald', sans-serif;
     font-size: 25px;
     color: #ffffff;
